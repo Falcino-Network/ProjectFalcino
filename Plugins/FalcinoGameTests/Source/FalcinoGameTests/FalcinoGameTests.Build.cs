@@ -25,7 +25,7 @@ public class FalcinoGameTests : ModuleRules
 		PublicDependencyModuleNames.AddRange(
 			new string[]
 			{
-				"Core", "RHI", "ProjectFalcino", "UnrealEd", "AITestSuite", "AITestSuite"
+				"Core", "RHI", "ProjectFalcino", "UnrealEd"
 				// ... add other public dependencies that you statically link with here ...
 			}
 			);
