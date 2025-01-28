@@ -20,7 +20,7 @@ void UInternetConnectedDevice::BeginPlay() {
 
 	if (GEngine) {
 		const FString debugMessage = FString::Printf(TEXT("DeviceComponent Initialized: %s"), *deviceID);
-		GEngine -> AddOnScreenDebugMessage(-1, 5.f, FColor::Green, debugMessage);
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, debugMessage);
 	}
 }
 
@@ -30,19 +30,17 @@ void UInternetConnectedDevice::TickComponent(float DeltaTime, ELevelTick TickTyp
 }
 
 void UInternetConnectedDevice::sendData(const FString& targetDeviceID, const FString& data) {
-	
 	if (isConnected && parentRouter) {
-		
-		parentRouter -> routeData(deviceID, targetDeviceID, data);
+		parentRouter->routeData(deviceID, targetDeviceID, data);
 
 		if (GEngine) {
-			FString debugMessage = FString::Printf( TEXT("Device %s sent data through Router to %s: %s"), *deviceID, *targetDeviceID, *data);
-			GEngine -> AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, debugMessage);
+			FString debugMessage = FString::Printf(TEXT("Device %s sent data through Router to %s: %s"), *deviceID, *targetDeviceID, *data);
+			GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, debugMessage);
 		}
 	} else {
 		// Error message if not connected
 		if (GEngine) {
-			GEngine -> AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Device is not connected to a router!"));
+			GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, TEXT("Device is not connected to a router!"));
 		}
 	}
 }
@@ -52,6 +50,6 @@ void UInternetConnectedDevice::receiveData(const FString& data) {
 
 	if (GEngine) {
 		FString debugMessage = FString::Printf(TEXT("Received Data: '%s'"), *receivedData);
-		GEngine -> AddOnScreenDebugMessage(-1, 5.f, FColor::Yellow, debugMessage);
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Yellow, debugMessage);
 	}
 }

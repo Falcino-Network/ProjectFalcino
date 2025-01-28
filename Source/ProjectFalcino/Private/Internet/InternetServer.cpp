@@ -20,7 +20,7 @@ void UInternetServer::BeginPlay() {
 	Super::BeginPlay();
 
 	if (GEngine) {
-		GEngine -> AddOnScreenDebugMessage(-1, 5.f, FColor::Green, TEXT("Server Component is online!"));
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, TEXT("Server Component is online!"));
 	}
 }
 
@@ -34,43 +34,41 @@ void UInternetServer::TickComponent(float DeltaTime, ELevelTick TickType, FActor
 void UInternetServer::registerRouter(UInternetRouter* router) {
 	if (router && !connectedRouters.Contains(router)) {
 		connectedRouters.Add(router);
-		router -> parentServer = this;
+		router->parentServer = this;
 
 		if (GEngine) {
-			FString debugMessage = FString::Printf(TEXT("Router registered to server: %s"), *router -> routerID);
-			GEngine -> AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, debugMessage);
+			FString debugMessage = FString::Printf(TEXT("Router registered to server: %s"), *router->routerID);
+			GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, debugMessage);
 		}
 	}
 }
 
 void UInternetServer::unregisterRouter(UInternetRouter* router) {
-	
 	if (router && connectedRouters.Contains(router)) {
 		connectedRouters.Remove(router);
-		router -> parentServer = nullptr;
-		
+		router->parentServer = nullptr;
+
 		if (GEngine) {
-			FString debugMessage = FString::Printf(TEXT("Router unregistered from server: %s"), *router -> routerID);
-			GEngine -> AddOnScreenDebugMessage(-1, 5.f, FColor::Yellow, debugMessage);
+			FString debugMessage = FString::Printf(TEXT("Router unregistered from server: %s"), *router->routerID);
+			GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Yellow, debugMessage);
 		}
 	}
 }
 
 void UInternetServer::routeData(FString senderDeviceID, FString targetDeviceID, FString data) {
-	
 	for (UInternetRouter* router : connectedRouters) {
 		if (router) {
 			// Check if the target device is connected to this router
-			for (UInternetConnectedDevice* device : router -> connectedDevices) {
-				if (device && device -> deviceID.Equals(targetDeviceID)) {
+			for (UInternetConnectedDevice* device : router->connectedDevices) {
+				if (device && device->deviceID.Equals(targetDeviceID)) {
 					// Route data to the target router
-					router -> routeData(senderDeviceID, targetDeviceID, data);
+					router->routeData(senderDeviceID, targetDeviceID, data);
 
 					if (GEngine) {
 						FString debugMessage = FString::Printf(TEXT("Server Component routed data: SenderDevice=%s, TargetDevice=%s, Data=%s"), *senderDeviceID, *targetDeviceID, *data);
-						GEngine -> AddOnScreenDebugMessage(-1, 5.f, FColor::Cyan, debugMessage);
+						GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Cyan, debugMessage);
 					}
-					
+
 					return;
 				}
 			}
@@ -79,8 +77,7 @@ void UInternetServer::routeData(FString senderDeviceID, FString targetDeviceID, 
 
 	// If no router has the target device
 	if (GEngine) {
-		
 		FString errorMessage = FString::Printf(TEXT("Server Component failed to route data: TargetDevice=%s not found!"), *targetDeviceID);
-		GEngine -> AddOnScreenDebugMessage(-1, 5.f, FColor::Red, errorMessage);
+		GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, errorMessage);
 	}
 }
