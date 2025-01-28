@@ -25,7 +25,7 @@ public class FalcinoGameTests : ModuleRules
 		PublicDependencyModuleNames.AddRange(
 			new string[]
 			{
-				"Core",
+				"Core", "RHI", "ProjectFalcino", "UnrealEd"
 				// ... add other public dependencies that you statically link with here ...
 			}
 			);
@@ -38,6 +38,8 @@ public class FalcinoGameTests : ModuleRules
 				"Engine",
 				"Slate",
 				"SlateCore",
+				"DeveloperSettings",
+				"AutomationController"
 				// ... add private dependencies that you statically link with here ...	
 			}
 			);
