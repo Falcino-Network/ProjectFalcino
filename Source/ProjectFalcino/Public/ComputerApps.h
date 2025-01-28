@@ -13,16 +13,16 @@ struct FComputerApps : public FTableRowBase {
 
 	GENERATED_BODY()
 
-	UPROPERTY(EditDefaultsOnly, Category="ComputerApps")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="ComputerApps")
 	UTexture2D* appIcon;
 
-	UPROPERTY(EditDefaultsOnly, Category="ComputerApps")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="ComputerApps")
 	TSubclassOf<UWidget> appWindow;
 
-	UPROPERTY(EditDefaultsOnly, Category="ComputerApps")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="ComputerApps")
 	int cpuUsage;
 
-	UPROPERTY(EditDefaultsOnly, Category="ComputerApps")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="ComputerApps")
 	int ramUsage;
 	
 };
